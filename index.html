@@ -395,29 +395,191 @@
   .footer-links a:hover { color: var(--cream); }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 13px; color: var(--text-dimmer); flex-wrap: wrap; gap: 12px; }
 
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 1100px) {
-    .nav { padding: 0 28px; }
-    .hero, .mission, .who, .ecosystem, .content-strip, .founders, .join-section, .pillars, .footer-cta { padding-left: 28px; padding-right: 28px; }
-    .join-section { padding-left: 28px; padding-right: 28px; }
-    footer { padding: 48px 28px 28px; }
-    .mission-inner, .who-inner { grid-template-columns: 1fr; gap: 40px; }
-    .founders-grid { grid-template-columns: 1fr; }
-    .join-card { grid-template-columns: 1fr; padding: 48px 36px; }
-    .footer-top { grid-template-columns: 1fr 1fr; }
+  /* ===== HAMBURGER (mobile nav) ===== */
+  .nav-burger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
   }
+  .nav-burger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--cream); border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; top: 72px; z-index: 99;
+    background: rgba(23,10,28,0.98); backdrop-filter: blur(20px);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 32px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 28px;
+    color: var(--cream); letter-spacing: -0.01em;
+  }
+  .mobile-menu a:hover { color: var(--magenta-bright); }
+  .mobile-menu-btns { display: flex; flex-direction: column; gap: 12px; align-items: center; margin-top: 8px; }
+  .mobile-menu-btns .btn-primary { font-size: 16px; padding: 14px 36px; border-radius: 100px; }
+  .mobile-menu-btns .btn-outline { font-size: 16px; padding: 13px 36px; }
+
+  /* ===== 1280px — Large desktop ===== */
+  @media (max-width: 1280px) {
+    .nav { padding: 0 40px; }
+    .mission, .who, .ecosystem, .content-strip, .founders,
+    .join-section, .pillars, .footer-cta { padding-left: 40px; padding-right: 40px; }
+    footer { padding: 56px 40px 32px; }
+    .hero-content-bar { padding: 24px 40px 28px; }
+    .join-card { padding: 56px 60px; gap: 48px; }
+  }
+
+  /* ===== 1024px — Laptop / small desktop ===== */
+  @media (max-width: 1024px) {
+    .nav { padding: 0 28px; }
+    .mission, .who, .ecosystem, .content-strip, .founders,
+    .join-section, .pillars, .footer-cta { padding-left: 28px; padding-right: 28px; }
+    footer { padding: 48px 28px 28px; }
+    .hero-content-bar { padding: 20px 28px 24px; }
+
+    /* Mission: stack cols */
+    .mission-inner { grid-template-columns: 1fr; gap: 48px; }
+
+    /* Who: stack cols */
+    .who-inner { grid-template-columns: 1fr; gap: 40px; }
+    .who-visual { height: 300px; }
+
+    /* Founders: stack */
+    .founders-grid { grid-template-columns: 1fr; gap: 20px; }
+
+    /* Join: stack */
+    .join-card { grid-template-columns: 1fr; padding: 48px 40px; gap: 40px; }
+
+    /* Footer: 2 col */
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+
+    /* Pillars: 2 col */
+    .pillars-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* Stat bar: 2x2 grid */
+    .hero-trust { flex-wrap: wrap; }
+    .trust-item { flex: 0 0 50%; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .trust-item:nth-child(2) { border-right: none; }
+    .trust-item:nth-child(3), .trust-item:nth-child(4) { border-bottom: none; }
+  }
+
+  /* ===== 768px — Tablet ===== */
   @media (max-width: 768px) {
+    /* Nav: hide links, show burger */
+    .nav { padding: 0 20px; height: 64px; }
     .nav-links, .nav-give { display: none; }
-    .hero h1 { font-size: 38px; }
-    .hero-trust { flex-direction: column; gap: 0; }
-    .trust-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 20px 0; }
-    .trust-item:last-child { border-bottom: none; }
-    .eco-grid { grid-template-columns: 1fr; }
-    .thumb-row { grid-template-columns: repeat(2, 1fr); }
-    .pillars-grid { grid-template-columns: 1fr 1fr; }
+    .nav-burger { display: flex; }
+
+    /* Hero video shorter on tablet */
+    .hero-video-wrap { height: 56vw; min-height: 300px; }
+
+    /* Hero content bar: stack */
+    .hero-content-bar {
+      flex-direction: column; align-items: flex-start; gap: 20px;
+      padding: 20px 20px 24px;
+    }
+    .hero-content-right {
+      width: 100%; justify-content: flex-start;
+    }
+    .hero h1 { font-size: clamp(20px, 4.5vw, 30px); }
+
+    /* Stat bar: 2x2 */
+    .hero-trust { flex-wrap: wrap; }
+    .trust-item { flex: 0 0 50%; padding: 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .trust-item:nth-child(2) { border-right: none; }
+    .trust-item:nth-child(3), .trust-item:nth-child(4) { border-bottom: none; }
+    .trust-num { font-size: 22px; }
+
+    /* Sections: tighter padding */
+    .mission, .who, .ecosystem, .content-strip, .founders,
+    .join-section, .pillars, .footer-cta { padding-top: 72px; padding-bottom: 72px; padding-left: 20px; padding-right: 20px; }
+    footer { padding: 48px 20px 24px; }
+
+    /* Thumbnails: 2 col */
+    .thumb-row { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* Eco grid: 1 col */
+    .eco-grid { grid-template-columns: 1fr; gap: 12px; }
+
+    /* Pillars: 2 col */
+    .pillars-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* Join form rows: single col */
     .form-row { grid-template-columns: 1fr; }
-    .footer-top { grid-template-columns: 1fr; }
-    .footer-bottom { flex-direction: column; align-items: flex-start; }
+    .join-card { padding: 36px 24px; }
+
+    /* Footer: 2 col */
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+
+    /* Founder cards: stack avatar + text */
+    .founder-card { flex-direction: column; padding: 28px 24px; gap: 16px; }
+    .founder-avatar { width: 52px; height: 52px; font-size: 16px; }
+  }
+
+  /* ===== 480px — Large mobile ===== */
+  @media (max-width: 480px) {
+    .nav { padding: 0 16px; height: 60px; }
+    .nav-watch { padding: 8px 14px; font-size: 12px; }
+
+    .hero-video-wrap { height: 52vw; min-height: 220px; }
+    .hero-content-bar { padding: 16px 16px 20px; gap: 16px; }
+    .hero h1 { font-size: clamp(17px, 4.8vw, 26px); line-height: 1.15; }
+    .hero-show-name { font-size: 10px; }
+    .hero-eyebrow { font-size: 9px; padding: 4px 10px 4px 8px; }
+    .btn-primary, .btn-outline { font-size: 13px; padding: 11px 18px; }
+    .hero-pause-btn { width: 34px; height: 34px; }
+    .hero-pause-btn svg { width: 11px; height: 11px; }
+
+    /* Stat bar: single col */
+    .hero-trust { flex-direction: column; }
+    .trust-item { flex: 1 1 100%; border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 18px 16px; }
+    .trust-item:last-child { border-bottom: none; }
+    .trust-num { font-size: 24px; }
+
+    .mission, .who, .ecosystem, .content-strip, .founders,
+    .join-section, .pillars, .footer-cta { padding-top: 56px; padding-bottom: 56px; padding-left: 16px; padding-right: 16px; }
+    footer { padding: 40px 16px 20px; }
+
+    /* Thumbnails: single col */
+    .thumb-row { grid-template-columns: 1fr; gap: 14px; }
+    .thumb { aspect-ratio: 16/9; }
+
+    /* Pillars: single col */
+    .pillars-grid { grid-template-columns: 1fr; gap: 12px; }
+
+    /* Footer: single col */
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+
+    /* Eco: single col */
+    .eco-grid { grid-template-columns: 1fr; }
+
+    /* Mission stats */
+    .mstat { padding: 20px; }
+    .mstat-num { font-size: 22px; min-width: 52px; }
+
+    /* Who visual shorter */
+    .who-visual { height: 220px; }
+    .who-visual-mark { font-size: 56px; }
+
+    /* Join */
+    .join-card { padding: 28px 16px; }
+
+    /* Footer email */
+    .footer-email-row { flex-direction: column; }
+    .footer-email-input { border-right: 1px solid rgba(255,255,255,0.1); border-radius: 4px; border-bottom: none; border-radius: 4px 4px 0 0; }
+    .footer-email-btn { border-radius: 0 0 4px 4px; padding: 12px; }
+  }
+
+  /* ===== 360px — Small mobile ===== */
+  @media (max-width: 360px) {
+    .hero h1 { font-size: 16px; }
+    .btn-primary, .btn-outline { font-size: 12px; padding: 10px 14px; }
+    .hero-content-right { gap: 8px; }
+    .hero-pause-btn { display: none; }
+    .trust-num { font-size: 20px; }
   }
 </style>
 </head>
@@ -438,8 +600,24 @@
   <div class="nav-right">
     <a href="#contact" class="nav-give">Give</a>
     <a href="landing-page.html" class="nav-watch">Watch free →</a>
+    <button class="nav-burger" id="navBurger" aria-label="Open menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="toggleMenu()">Home</a>
+  <a href="#about" onclick="toggleMenu()">About Us</a>
+  <a href="#" onclick="toggleMenu()">Our Team</a>
+  <a href="#" onclick="toggleMenu()">Blog</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <div class="mobile-menu-btns">
+    <a href="#contact" class="btn-primary" onclick="toggleMenu()">Give</a>
+    <a href="landing-page.html" class="btn-outline">Watch free →</a>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -820,6 +998,23 @@
 </footer>
 
 <script>
+  // Mobile menu toggle
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const burger = document.getElementById('navBurger');
+    const isOpen = menu.classList.toggle('open');
+    burger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    const spans = burger.querySelectorAll('span');
+    if (isOpen) {
+      spans[0].style.transform = 'translateY(7px) rotate(45deg)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
+  }
+
   // If no video src is set, show the gradient fallback
   const vid = document.getElementById('heroVideo');
   const wrap = document.getElementById('heroWrap');
