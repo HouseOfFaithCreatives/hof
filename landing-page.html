@@ -366,7 +366,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .card-land:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 20px 48px rgba(0,0,0,0.55); z-index: 5; }
 .card-land-thumb {
-  width: 100%; height: 169px; position: relative; overflow: hidden; background: var(--surface);
+  width: 100%; aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: var(--surface);
 }
 .card-land-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .card-ph {
@@ -445,7 +445,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .card-cont:hover { transform: scale(1.03) translateY(-4px); box-shadow: 0 18px 44px rgba(0,0,0,0.5); z-index: 5; }
 .card-cont-thumb {
-  width: 100%; height: 153px; position: relative; overflow: hidden; background: var(--surface);
+  width: 100%; aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: var(--surface);
 }
 .card-cont-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .card-cont-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,15,0.92) 0%, transparent 55%); }
@@ -629,44 +629,95 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .card-land, .card-port, .card-cont { will-change: transform; }
 
 /* ─── RESPONSIVE ──────────────────────────────────────── */
+
+/* Laptop / small desktop */
 @media (max-width: 1100px) {
-  .browse-panel { width: 216px; }
-  .topnav-link:nth-child(n+9) { display: none; }
+  .browse-panel { width: 210px; }
 }
+
+/* Tablet landscape — hide browse panel */
 @media (max-width: 900px) {
   .browse-panel { display: none; }
+  /* show 4 top10 cards */
+  .card-row-top10 { grid-auto-columns: calc((100% - 48px - 3 * 14px) / 4.2); }
 }
+
+/* Tablet portrait ~768px */
+@media (max-width: 768px) {
+  .hero { height: 50vh; min-height: 260px; }
+  .card-row-grid { grid-template-columns: repeat(3, 1fr); }
+  /* show 3 top10 cards */
+  .card-row-top10 { grid-auto-columns: calc((100% - 48px - 2 * 14px) / 3.2); }
+}
+
+/* Nav links collapse */
 @media (max-width: 680px) {
   .topnav-links { display: none; }
   .topnav { padding: 0 16px; }
 }
+
+/* Mobile — 640px and below */
 @media (max-width: 640px) {
+  /* Layout */
   .mobile-tabbar { display: flex; }
   .main { height: calc(100dvh - 62px); }
+  .rows-area { padding: 14px 0 82px; }
+
+  /* Topnav */
   .topnav { height: 52px; padding: 0 14px; }
   .topnav-logo img { height: 18px; }
-  .hero { height: 44vh; min-height: 240px; }
-  .hero-title { font-size: clamp(22px, 6.5vw, 38px); }
-  .hero-slide-content { padding: 0 14px 18px; max-width: 100%; }
-  .hero-actions { gap: 8px; }
-  .btn-play, .btn-more, .btn-give { font-size: 13px; padding: 10px 16px; }
+
+  /* Hero */
+  .hero { height: 46vh; min-height: 230px; }
+  .hero-tagline { display: none; }
+  .hero-title { font-size: clamp(18px, 6vw, 30px); white-space: normal; }
+  .hero-slide-content { padding: 0 14px 16px; max-width: 100%; }
+  .hero-actions { gap: 7px; }
+  .btn-play, .btn-more, .btn-give { font-size: 12px; padding: 9px 13px; }
+  .hero-pause { display: none; }
+
+  /* Sections */
   .section-head { padding: 0 14px; }
   .card-row { padding: 4px 14px 10px; gap: 10px; }
-  .card-row-grid { grid-template-columns: repeat(2, 1fr); }
-  .card-land { width: 240px; }
-  .card-land-thumb { height: 135px; }
-  .card-port { width: 120px; }
-  .card-cont { width: 230px; }
-  .card-cont-thumb { height: 130px; }
-  .rows-area { padding: 18px 0 86px; }
-  .hero-pause { display: none; }
+
+  /* Landscape + Continue Watching — 2 col grid */
+  .card-row-grid { grid-template-columns: repeat(2, 1fr); padding: 4px 14px 10px; gap: 10px; }
+  .card-row-grid .card-land,
+  .card-row-grid .card-cont { width: auto; }
+
+  /* Top 10 — show 2.4 cards, hint at scroll */
+  .card-row-top10 { grid-auto-columns: calc((100% - 28px - 1 * 10px) / 2.4); gap: 10px; padding: 4px 14px 14px; }
+
+  /* Cards */
+  .card-land { width: auto; }
+  .card-cont { width: auto; }
+  .card-port { width: auto; }
+
+  /* Popup hidden on touch */
+  .preview-popup { display: none; }
 }
+
+/* Small mobile — 480px */
+@media (max-width: 480px) {
+  .hero { height: 42vh; min-height: 210px; }
+  .hero-meta { display: none; }
+  .btn-give { display: none; }
+  .hero-actions { gap: 6px; }
+  /* 1 col for continue watching so cards are readable */
+  .card-row-grid { grid-template-columns: repeat(2, 1fr); }
+  /* 2 visible top10 */
+  .card-row-top10 { grid-auto-columns: calc((100% - 28px) / 2.2); }
+}
+
+/* iPhone SE / very small — 390px */
 @media (max-width: 390px) {
-  .card-land { width: 200px; }
-  .card-land-thumb { height: 113px; }
-  .card-port { width: 108px; }
-  .card-cont { width: 200px; }
+  .topnav-logo span { display: none; }
+  .hero { height: 38vh; min-height: 190px; }
+  .hero-title { font-size: clamp(16px, 5.5vw, 24px); }
   .btn-more { display: none; }
+  .card-row-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 4px 12px 10px; }
+  .card-row-top10 { grid-auto-columns: calc((100% - 24px) / 2.1); gap: 8px; padding: 4px 12px 14px; }
+  .section-head { padding: 0 12px; }
 }
 
 /* ─── CARD CLICKABLE ──────────────────── */
