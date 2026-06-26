@@ -1396,7 +1396,10 @@ for (let i = 1; i <= 10; i++) {
   movieData['top10-' + i] = {
     title: 'Title Here', year: '2024', rating: 'PG', duration: '—', match: '—',
     genres: ['FaithStream'], desc: 'Title and details coming soon.',
-    cast: 'TBA', director: 'TBA', img: 'top10-' + i + '.png', more: _moreDefaults
+    cast: 'TBA', director: 'TBA',
+    img: 'top10-' + i + '.png',
+    thumbImg: 'top10-' + i + '-thumb.png',
+    more: _moreDefaults
   };
 }
 for (let i = 1; i <= 4; i++) {
@@ -1415,7 +1418,7 @@ function showPreview(cardEl, movieId) {
   clearTimeout(previewTimer);
   previewTimer = setTimeout(() => {
     const d = movieData[movieId] || movieData.placeholder;
-    document.getElementById('pvImg').src = d.img;
+    document.getElementById('pvImg').src = d.thumbImg || d.img;
     document.getElementById('pvImg').onerror = function(){ this.style.opacity = '0'; };
     document.getElementById('pvTitle').textContent = d.title;
     document.getElementById('pvMatch').textContent = d.match !== '—' ? d.match + '% Match' : '';
